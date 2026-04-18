@@ -1,6 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Lato, Inter } from 'next/font/google'
+import { Bungee, Space_Grotesk } from 'next/font/google'
 import { Providers } from './providers'
 import Header from '@/components/layout/header'
 import Footer from '@/components/layout/footer'
@@ -14,16 +14,16 @@ import dynamic from 'next/dynamic'
 
 const CookieConsent = dynamic(() => import('@/components/cookie-consent'))
 
-const heading = Lato({
+const heading = Bungee({
   subsets: ['latin'],
-  weight: ['400', '700'],
+  weight: ['400'],
   variable: '--font-heading',
   display: 'swap',
 })
 
-const body = Inter({
+const body = Space_Grotesk({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-body',
   display: 'swap',
 })

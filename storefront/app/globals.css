@@ -4,37 +4,42 @@
 
 @layer base {
   :root {
-    --background: 40 20% 98%;
-    --foreground: 0 0% 10%;
-    --muted: 40 10% 94%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 35 40% 50%;
+    /* FUNKY palette — hot pink, acid yellow, electric blue, lime, violet */
+    --background: 50 100% 96%;       /* cream-yellow */
+    --foreground: 270 60% 12%;       /* deep violet-black */
+    --muted: 50 80% 92%;
+    --muted-foreground: 270 20% 35%;
+    --accent: 330 100% 60%;          /* hot pink */
     --accent-foreground: 0 0% 100%;
-    --border: 40 10% 88%;
-    --ring: 35 40% 50%;
-    --primary: 0 0% 10%;
-    --primary-foreground: 0 0% 98%;
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 98%;
+    --border: 270 60% 12%;           /* bold dark borders everywhere */
+    --ring: 330 100% 60%;
+    --primary: 270 80% 55%;          /* violet */
+    --primary-foreground: 0 0% 100%;
+    --destructive: 0 85% 55%;
+    --destructive-foreground: 0 0% 100%;
 
-    /* Brand colors (dynamically injected from Store.metadata.brand) */
-    /* Access in CSS: var(--brand-primary), var(--brand-secondary) */
-    /* Managed by BrandStyleInjector component */
+    /* Funky extras */
+    --funky-pink: 330 100% 62%;
+    --funky-yellow: 50 100% 58%;
+    --funky-blue: 220 100% 62%;
+    --funky-lime: 80 85% 55%;
+    --funky-violet: 275 80% 58%;
+    --funky-orange: 20 100% 60%;
   }
 
   .dark {
-    --background: 0 0% 6%;
-    --foreground: 40 20% 94%;
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 55%;
-    --accent: 35 45% 55%;
+    --background: 275 40% 8%;
+    --foreground: 50 100% 94%;
+    --muted: 275 30% 14%;
+    --muted-foreground: 50 30% 75%;
+    --accent: 330 100% 65%;
     --accent-foreground: 0 0% 100%;
-    --border: 0 0% 16%;
-    --ring: 35 45% 55%;
-    --primary: 40 20% 94%;
-    --primary-foreground: 0 0% 6%;
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 98%;
+    --border: 50 100% 94%;
+    --ring: 330 100% 65%;
+    --primary: 275 80% 65%;
+    --primary-foreground: 275 40% 8%;
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 0 0% 100%;
   }
 }
 
@@ -45,6 +50,9 @@
 
   body {
     @apply bg-background text-foreground font-body antialiased;
+    background-image:
+      radial-gradient(hsl(var(--foreground) / 0.06) 1px, transparent 1px);
+    background-size: 22px 22px;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -66,13 +74,119 @@
   }
   .link-underline::after {
     content: '';
-    @apply absolute bottom-0 left-0 h-px w-0 bg-foreground transition-all duration-300;
+    @apply absolute bottom-0 left-0 h-[3px] w-0 bg-accent transition-all duration-300;
   }
   .link-underline:hover::after {
     @apply w-full;
   }
 
-  /* Brand color utilities - uses colors from Store.metadata.brand */
+  /* ====== FUNKY UTILITIES ====== */
+
+  /* Thick retro border like a sticker / neubrutalism */
+  .funky-border {
+    border: 3px solid hsl(var(--foreground));
+  }
+
+  /* Chunky hard shadow for that sticker-on-paper feel */
+  .funky-shadow {
+    box-shadow: 6px 6px 0 0 hsl(var(--foreground));
+  }
+  .funky-shadow-sm {
+    box-shadow: 3px 3px 0 0 hsl(var(--foreground));
+  }
+  .funky-shadow-lg {
+    box-shadow: 10px 10px 0 0 hsl(var(--foreground));
+  }
+  .funky-shadow-pink {
+    box-shadow: 6px 6px 0 0 hsl(var(--funky-pink));
+  }
+  .funky-shadow-blue {
+    box-shadow: 6px 6px 0 0 hsl(var(--funky-blue));
+  }
+
+  /* Press-in hover for sticker buttons */
+  .funky-press {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .funky-press:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 4px 4px 0 0 hsl(var(--foreground));
+  }
+  .funky-press:active {
+    transform: translate(6px, 6px);
+    box-shadow: 0 0 0 0 hsl(var(--foreground));
+  }
+
+  /* Rainbow gradient text */
+  .text-rainbow {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--funky-pink)),
+      hsl(var(--funky-orange)),
+      hsl(var(--funky-yellow)),
+      hsl(var(--funky-lime)),
+      hsl(var(--funky-blue)),
+      hsl(var(--funky-violet))
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rainbow-slide 6s linear infinite;
+  }
+
+  @keyframes rainbow-slide {
+    0% { background-position: 0% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* Wiggle (hover + decorative) */
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+  .animate-wiggle {
+    animation: wiggle 2.5s ease-in-out infinite;
+  }
+
+  /* Slow spin for stars / sparkles */
+  @keyframes spin-slow {
+    from { transform: rotate(0); }
+    to { transform: rotate(360deg); }
+  }
+  .animate-spin-slow {
+    animation: spin-slow 12s linear infinite;
+  }
+
+  /* Marquee for announcement bar */
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    animation: marquee 28s linear infinite;
+  }
+
+  /* Funky blob background */
+  .bg-funky-gradient {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--funky-pink) / 0.85),
+      hsl(var(--funky-yellow) / 0.85) 40%,
+      hsl(var(--funky-blue) / 0.85)
+    );
+  }
+
+  .bg-funky-stripes {
+    background-image: repeating-linear-gradient(
+      45deg,
+      hsl(var(--funky-pink)) 0 20px,
+      hsl(var(--funky-yellow)) 20px 40px,
+      hsl(var(--funky-blue)) 40px 60px
+    );
+  }
+
+  /* Brand color utilities */
   .btn-brand-primary {
     background-color: var(--brand-primary, hsl(var(--primary)));
     color: white;
@@ -80,55 +194,28 @@
   .btn-brand-primary:hover {
     opacity: 0.9;
   }
-
-  .text-brand-primary {
-    color: var(--brand-primary, hsl(var(--primary)));
-  }
-
-  .text-brand-secondary {
-    color: var(--brand-secondary, hsl(var(--accent)));
-  }
-
-  .border-brand-primary {
-    border-color: var(--brand-primary, hsl(var(--border)));
-  }
-
-  .bg-brand-primary {
-    background-color: var(--brand-primary, hsl(var(--primary)));
-  }
-
-  .bg-brand-secondary {
-    background-color: var(--brand-secondary, hsl(var(--accent)));
-  }
+  .text-brand-primary { color: var(--brand-primary, hsl(var(--primary))); }
+  .text-brand-secondary { color: var(--brand-secondary, hsl(var(--accent))); }
+  .border-brand-primary { border-color: var(--brand-primary, hsl(var(--border))); }
+  .bg-brand-primary { background-color: var(--brand-primary, hsl(var(--primary))); }
+  .bg-brand-secondary { background-color: var(--brand-secondary, hsl(var(--accent))); }
 }
 
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
-/* Selection color */
 ::selection {
-  @apply bg-accent/20 text-foreground;
+  background: hsl(var(--funky-yellow));
+  color: hsl(var(--foreground));
 }
 
-/* Focus styles */
 :focus-visible {
   @apply outline-2 outline-offset-2 outline-ring;
 }
 
-/* Cookie consent animation */
 @keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(1rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(1rem); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
 .animate-fade-in {
   animation: fade-in 0.3s ease-out;
 }

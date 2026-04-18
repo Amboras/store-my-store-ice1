@@ -29,16 +29,24 @@ const config: Config = {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
         },
+        funky: {
+          pink: 'hsl(var(--funky-pink))',
+          yellow: 'hsl(var(--funky-yellow))',
+          blue: 'hsl(var(--funky-blue))',
+          lime: 'hsl(var(--funky-lime))',
+          violet: 'hsl(var(--funky-violet))',
+          orange: 'hsl(var(--funky-orange))',
+        },
       },
       fontFamily: {
         heading: ['var(--font-heading)', 'sans-serif'],
         body: ['var(--font-body)', 'sans-serif'],
       },
       fontSize: {
-        'display': ['4.5rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
-        'h1': ['3rem', { lineHeight: '1.15', letterSpacing: '-0.02em' }],
-        'h2': ['2.25rem', { lineHeight: '1.2', letterSpacing: '-0.01em' }],
-        'h3': ['1.5rem', { lineHeight: '1.3' }],
+        'display': ['5.5rem', { lineHeight: '0.95', letterSpacing: '-0.03em' }],
+        'h1': ['3.5rem', { lineHeight: '1.05', letterSpacing: '-0.02em' }],
+        'h2': ['2.5rem', { lineHeight: '1.1', letterSpacing: '-0.01em' }],
+        'h3': ['1.75rem', { lineHeight: '1.2' }],
         'h4': ['1.25rem', { lineHeight: '1.4' }],
       },
       maxWidth: {
